@@ -61,9 +61,9 @@
 
 typedef void (*TitleCard_Update_proc)(GlobalContext* globalCtx, TitleCardContext* titleCtx);
 #ifdef Version_EUR
-    #define TitleCard_Update_addr 0x47955C
+#define TitleCard_Update_addr 0x47955C
 #else
-    #define TitleCard_Update_addr 0x47953C
+#define TitleCard_Update_addr 0x47953C
 #endif
 #define TitleCard_Update ((TitleCard_Update_proc)TitleCard_Update_addr)
 
@@ -168,7 +168,7 @@ void Actor_Init() {
 
     gActorOverlayTable[0x145].initInfo->init = BgSpot01Idosoko_rInit;
 
-    gActorOverlayTable[0x14D].initInfo->init = EnOwl_DespawnInit; //Despawns unnecessary owls
+    gActorOverlayTable[0x14D].initInfo->init = EnOwl_DespawnInit; // Despawns unnecessary owls
     gActorOverlayTable[0x14D].initInfo->update = EnOwl_rUpdate;
 
     gActorOverlayTable[0x14E].initInfo->init = EnIshi_rInit;

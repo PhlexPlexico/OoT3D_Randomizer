@@ -13,7 +13,7 @@
 s8 BitCompare(u32 value1, u32 value2, u8 bit);
 
 u32 Hash(u32);
-u8  Bias(u32);
+u8 Bias(u32);
 
 u8 IsInGame(void);
 u8 IsInGameOrBossChallenge(void);

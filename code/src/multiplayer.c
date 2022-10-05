@@ -215,10 +215,12 @@ void Multiplayer_OnFileLoad(void) {
 
     // Clear Empty Slots
     for (u8 i = 0; i < 0x18; ++i) {
-        if (gSaveContext.itemMenuChild[i] != SLOT_NONE && gSaveContext.items[gSaveContext.itemMenuChild[i]] == ITEM_NONE) {
+        if (gSaveContext.itemMenuChild[i] != SLOT_NONE &&
+            gSaveContext.items[gSaveContext.itemMenuChild[i]] == ITEM_NONE) {
             gSaveContext.itemMenuChild[i] = SLOT_NONE;
         }
-        if (gSaveContext.itemMenuAdult[i] != SLOT_NONE && gSaveContext.items[gSaveContext.itemMenuAdult[i]] == ITEM_NONE) {
+        if (gSaveContext.itemMenuAdult[i] != SLOT_NONE &&
+            gSaveContext.items[gSaveContext.itemMenuAdult[i]] == ITEM_NONE) {
             gSaveContext.itemMenuAdult[i] = SLOT_NONE;
         }
     }
@@ -226,7 +228,8 @@ void Multiplayer_OnFileLoad(void) {
     static const u8 SLOT_MAGIC_ARROW[] = { SLOT_ARROW_FIRE, SLOT_ARROW_ICE, SLOT_ARROW_LIGHT };
     for (size_t i = 0; i < ARRAY_SIZE(SLOT_MAGIC_ARROW); i++) {
         if (gSaveContext.items[SLOT_BOW] == ITEM_NONE && gSaveContext.items[SLOT_MAGIC_ARROW[i]] != ITEM_NONE &&
-            !SaveFile_InventoryMenuHasSlot(0, SLOT_MAGIC_ARROW[i]) && !SaveFile_InventoryMenuHasSlot(1, SLOT_MAGIC_ARROW[i])) {
+            !SaveFile_InventoryMenuHasSlot(0, SLOT_MAGIC_ARROW[i]) &&
+            !SaveFile_InventoryMenuHasSlot(1, SLOT_MAGIC_ARROW[i])) {
             PushSlotIntoInventoryMenu(SLOT_MAGIC_ARROW[i]);
         } else if (gSaveContext.items[SLOT_BOW] != ITEM_NONE || gSaveContext.items[SLOT_MAGIC_ARROW[i]] == ITEM_NONE) {
             SaveFile_ResetItemSlotsIfMatchesID(SLOT_MAGIC_ARROW[i]);
@@ -357,7 +360,8 @@ void Multiplayer_Run(void) {
 
                     // Try 10 times?
                     for (size_t i = 0; i < 10; i++) {
-                        result = udsConnectNetwork(&network->network, "", 1, &bindctx, UDS_BROADCAST_NETWORKNODEID, UDSCONTYPE_Client, data_channel, UDS_DEFAULT_RECVBUFSIZE);
+                        result = udsConnectNetwork(&network->network, "", 1, &bindctx, UDS_BROADCAST_NETWORKNODEID,
+                                                   UDSCONTYPE_Client, data_channel, UDS_DEFAULT_RECVBUFSIZE);
                         if (R_SUCCEEDED(result)) {
                             break;
                         }
@@ -727,7 +731,8 @@ static void Multiplayer_Sync_SharedProgress(void) {
     };
     for (size_t member = 0; member < ARRAY_SIZE(actorFlagPtr); member++) {
         // Don't sync chest minigame chests (except the final one) when the setting is off
-        if (member == 1 && gGlobalContext->sceneNum == 16 && gGlobalContext->roomNum != 6 && gSettingsContext.shuffleChestMinigame == SHUFFLECHESTMINIGAME_OFF) {
+        if (member == 1 && gGlobalContext->sceneNum == 16 && gGlobalContext->roomNum != 6 &&
+            gSettingsContext.shuffleChestMinigame == SHUFFLECHESTMINIGAME_OFF) {
             continue;
         }
         if (*prevActorFlagPtr[member] != *actorFlagPtr[member]) {
@@ -1254,11 +1259,13 @@ void Multiplayer_Receive_Item(u16 senderID) {
 
     // Skip bottle content syncing except for removing Big Poes and Rutos Letter
     if (slot >= SLOT_BOTTLE_1 && slot <= SLOT_BOTTLE_4 && mSaveContext.items[slot] != ITEM_NONE &&
-        !(item == ITEM_BOTTLE && (mSaveContext.items[slot] == ITEM_BIG_POE || mSaveContext.items[slot] == ITEM_LETTER_RUTO))) {
+        !(item == ITEM_BOTTLE &&
+          (mSaveContext.items[slot] == ITEM_BIG_POE || mSaveContext.items[slot] == ITEM_LETTER_RUTO))) {
         return;
     }
     // Skip post-letter child trade syncing, aka masks/sold out
-    if (slot == SLOT_TRADE_CHILD && item != ITEM_NONE && item != ITEM_WEIRD_EGG && item != ITEM_CHICKEN && item != ITEM_LETTER_ZELDA) {
+    if (slot == SLOT_TRADE_CHILD && item != ITEM_NONE && item != ITEM_WEIRD_EGG && item != ITEM_CHICKEN &&
+        item != ITEM_LETTER_ZELDA) {
         return;
     }
     // Adult trade slot/item syncing is handled in Multiplayer_Sync_SharedProgress
@@ -1267,7 +1274,8 @@ void Multiplayer_Receive_Item(u16 senderID) {
     }
 
     // Add bombchu ammo when they're unlocked and in logic
-    if (gSettingsContext.bombchusInLogic && slot == SLOT_BOMBCHU && mSaveContext.items[slot] == ITEM_NONE && item != ITEM_NONE) {
+    if (gSettingsContext.bombchusInLogic && slot == SLOT_BOMBCHU && mSaveContext.items[slot] == ITEM_NONE &&
+        item != ITEM_NONE) {
         mSaveContext.ammo[SLOT_BOMBCHU] = 20;
         prevAmmo[SLOT_BOMBCHU] = 20;
     }
@@ -2213,10 +2221,10 @@ void Multiplayer_Receive_ActorUpdate(u16 senderID) {
         }
         // If only one actor has the same params, check for that. Otherwise use the home PosRot
         if ((amountWithSameParams <= 1 && actor->params == actorParams) ||
-            (amountWithSameParams > 1 &&
-                (s32)actorHome.pos.x == (s32)actor->home.pos.x && actorHome.rot.x == actor->home.rot.x &&
-                (s32)actorHome.pos.y == (s32)actor->home.pos.y && actorHome.rot.y == actor->home.rot.y &&
-                (s32)actorHome.pos.z == (s32)actor->home.pos.z && actorHome.rot.z == actor->home.rot.z)) {
+            (amountWithSameParams > 1 && (s32)actorHome.pos.x == (s32)actor->home.pos.x &&
+             actorHome.rot.x == actor->home.rot.x && (s32)actorHome.pos.y == (s32)actor->home.pos.y &&
+             actorHome.rot.y == actor->home.rot.y && (s32)actorHome.pos.z == (s32)actor->home.pos.z &&
+             actorHome.rot.z == actor->home.rot.z)) {
             switch (actorId) {
                 case 0x4: // Shop Items
                 {
@@ -2279,7 +2287,8 @@ void Multiplayer_Receive_ActorUpdate(u16 senderID) {
         {
             BgYdanSp_SendData sendData;
             memcpy(&sendData, &mBuffer[memSpacer], sizeof(BgYdanSp_SendData));
-            for (Actor* actor = gGlobalContext->actorCtx.actorList[actorType].first; actor != NULL; actor = actor->next) {
+            for (Actor* actor = gGlobalContext->actorCtx.actorList[actorType].first; actor != NULL;
+                 actor = actor->next) {
                 if (actor->id != actorId) {
                     continue;
                 }
@@ -2296,7 +2305,8 @@ void Multiplayer_Receive_ActorUpdate(u16 senderID) {
         {
             BgSpot15Rrbox_SendData sendData;
             memcpy(&sendData, &mBuffer[memSpacer], sizeof(BgSpot15Rrbox_SendData));
-            for (Actor* actor = gGlobalContext->actorCtx.actorList[actorType].first; actor != NULL; actor = actor->next) {
+            for (Actor* actor = gGlobalContext->actorCtx.actorList[actorType].first; actor != NULL;
+                 actor = actor->next) {
                 if (actor->id != actorId) {
                     continue;
                 }
@@ -2311,12 +2321,12 @@ void Multiplayer_Receive_ActorUpdate(u16 senderID) {
             break;
         }
         case 0x11A: // Business Scrubs
-            for (Actor* actor = gGlobalContext->actorCtx.actorList[ACTORTYPE_ENEMY].first; actor != NULL; actor = actor->next) {
+            for (Actor* actor = gGlobalContext->actorCtx.actorList[ACTORTYPE_ENEMY].first; actor != NULL;
+                 actor = actor->next) {
                 if (actor->id != 0x195) {
                     continue;
                 }
-                if ((s32)actorHome.pos.x == (s32)actor->home.pos.x &&
-                    (s32)actorHome.pos.y == (s32)actor->home.pos.y &&
+                if ((s32)actorHome.pos.x == (s32)actor->home.pos.x && (s32)actorHome.pos.y == (s32)actor->home.pos.y &&
                     (s32)actorHome.pos.z == (s32)actor->home.pos.z) {
                     Actor_Kill(actor);
                     break;
@@ -2328,9 +2338,9 @@ void Multiplayer_Receive_ActorUpdate(u16 senderID) {
                 // Set flag so it doesn't despawn. Needs to be set in gSaveContext, even though
                 // it gets overwritten later, because the actor init function gets called in Actor_Spawn.
                 Flags_SetSwitch(gGlobalContext, lastBeanPlant_Params & 0x3F);
-                Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, actorId,
-                    lastBeanPlant_Home.pos.x, lastBeanPlant_Home.pos.y, lastBeanPlant_Home.pos.z,
-                    lastBeanPlant_Home.rot.x, lastBeanPlant_Home.rot.y, lastBeanPlant_Home.rot.z, lastBeanPlant_Params);
+                Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, actorId, lastBeanPlant_Home.pos.x,
+                            lastBeanPlant_Home.pos.y, lastBeanPlant_Home.pos.z, lastBeanPlant_Home.rot.x,
+                            lastBeanPlant_Home.rot.y, lastBeanPlant_Home.rot.z, lastBeanPlant_Params);
             }
             break;
     }
@@ -2371,9 +2381,8 @@ void Multiplayer_Receive_ActorSpawn(u16 senderID) {
     memSpacer += sizeof(PosRot) / 4;
     s16 params = mBuffer[memSpacer++];
 
-    Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, actorId,
-        rcvdPosRot.pos.x, rcvdPosRot.pos.y, rcvdPosRot.pos.z,
-        rcvdPosRot.rot.x, rcvdPosRot.rot.y, rcvdPosRot.rot.z, params);
+    Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, actorId, rcvdPosRot.pos.x, rcvdPosRot.pos.y,
+                rcvdPosRot.pos.z, rcvdPosRot.rot.x, rcvdPosRot.rot.y, rcvdPosRot.rot.z, params);
 }
 
 // Etc

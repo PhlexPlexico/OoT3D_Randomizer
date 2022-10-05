@@ -32,9 +32,8 @@ void BossChallenge_ExitMenu(s32 exitType) {
         }
         Multiplayer_OnFileLoad();
         enteredBCmenu = 0;
-    }
-    else {
+    } else {
         // Exiting menu to a boss battle.
-        gSaveContext.eventChkInf[0x7] |= 0x01FF; //began boss battles
+        gSaveContext.eventChkInf[0x7] |= 0x01FF; // began boss battles
     }
 }
