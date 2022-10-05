@@ -40,7 +40,7 @@ typedef struct {
 
             u16 unk_x1c; // Unknown, normally zero. Set to 0x0 with the output from udsScanBeacons().
             u8 flag; //"u8 flag, unknown. Originates from the u16 bitmask in the beacon node-list header. This flag is
-                     //normally 0 since that bitmask is normally 0?"
+                     // normally 0 since that bitmask is normally 0?"
             u8 pad_x1f; // Unknown, normally zero.
         };
     };
@@ -62,7 +62,7 @@ typedef struct {
     u8 total_nodes;
     u8 max_nodes;
     u16 node_bitmask; //"This is a bitmask of NetworkNodeIDs: bit0 for NetworkNodeID 0x1(host), bit1 for NetworkNodeID
-                      //0x2(first original client), and so on."
+                      // 0x2(first original client), and so on."
 } udsConnectionStatus;
 
 /// Network struct stored as big-endian.

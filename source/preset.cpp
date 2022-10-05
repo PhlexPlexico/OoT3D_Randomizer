@@ -388,7 +388,7 @@ PremadePreset presetFullChaos = { "Full Chaos",
                                       { &Settings::AmmoDrops, AMMODROPS_NONE },
                                       { &Settings::HeartDropRefill, HEARTDROPREFILL_NODROPREFILL },
                                       { &Settings::MQDungeonCount, 13 }, // Random
-                                      // Shuffle Settings
+                                                                         // Shuffle Settings
                                       { &Settings::ShuffleRewards, REWARDSHUFFLE_ANYWHERE },
                                       { &Settings::LinksPocketItem, LINKSPOCKETITEM_ANYTHING },
                                       { &Settings::ShuffleSongs, SONGSHUFFLE_ANYWHERE },

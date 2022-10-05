@@ -694,7 +694,7 @@ std::vector<Option*> trickOptions = {
     &LogicGoronCityPotWithStrength,
     &LogicChildRollingWithStrength,
     //&LogicCraterUpperToLower, Needs Testing           Possible to break in 1 swing if you hit the right place? Right
-    //angle? Seems very inconsistent.
+    // angle? Seems very inconsistent.
     &LogicCraterBeanPoHWithHovers,
     &LogicBiggoronBolero,
     &LogicZoraRiverLower,
@@ -708,10 +708,10 @@ std::vector<Option*> trickOptions = {
     &LogicDCSlingshotSkip,
     &LogicDCScarecrowGS,
     //&LogicJabuBossGSAdult, Needs Testing              Don't know if possible as described, easier method exists as you
-    //can just backwalk with the box
+    // can just backwalk with the box
     &LogicJabuScrubJumpDive,
     //&LogicForestOutsideBackdoor, Needs Testing        Possible with bombchu damage boost, jumpslash is definitely
-    //harder than "intermediate" if at all possible
+    // harder than "intermediate" if at all possible
     &LogicForestDoorFrame,
     &LogicForestOutdoorEastGS,
     &LogicFireBossDoorJump,
