@@ -40,7 +40,7 @@ typedef enum {
     SEQ_AMBIENCE,
     // Meta
     SEQTYPE_COUNT,
-    SEQ_NOCAT     = 0xFE, // For sound effects that doesn't fit into any category
+    SEQ_NOCAT = 0xFE,     // For sound effects that doesn't fit into any category
     SEQ_NOSHUFFLE = 0xFF, // For DUMMYs and YOBIs that are either blank or duplicates, and for system sound effects
 } SeqType;
 

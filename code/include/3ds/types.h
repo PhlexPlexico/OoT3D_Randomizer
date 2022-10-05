@@ -9,7 +9,7 @@
 #include <stddef.h>
 
 /// The maximum value of a u64.
-#define U64_MAX	UINT64_MAX
+#define U64_MAX UINT64_MAX
 
 /// would be nice if newlib had this already
 #ifndef SSIZE_MAX
@@ -38,22 +38,22 @@ typedef volatile s16 vs16; ///< 16-bit volatile signed integer.
 typedef volatile s32 vs32; ///< 32-bit volatile signed integer.
 typedef volatile s64 vs64; ///< 64-bit volatile signed integer.
 
-typedef u32 Handle;                 ///< Resource handle.
-typedef s32 Result;                 ///< Function result.
-typedef void (*ThreadFunc)(void *); ///< Thread entrypoint function.
+typedef u32 Handle;                ///< Resource handle.
+typedef s32 Result;                ///< Function result.
+typedef void (*ThreadFunc)(void*); ///< Thread entrypoint function.
 typedef void (*voidfn)(void);
 
 /// Creates a bitmask from a bit number.
-#define BIT(n) (1U<<(n))
+#define BIT(n) (1U << (n))
 
 /// Aligns a struct (and other types?) to m, making sure that the size of the struct is a multiple of m.
-#define ALIGN(m)   __attribute__((aligned(m)))
+#define ALIGN(m) __attribute__((aligned(m)))
 /// Packs a struct (and other types?) so it won't include padding bytes.
-#define PACKED     __attribute__((packed))
+#define PACKED __attribute__((packed))
 
 #ifndef LIBCTRU_NO_DEPRECATION
 /// Flags a function as deprecated.
-#define DEPRECATED __attribute__ ((deprecated))
+#define DEPRECATED __attribute__((deprecated))
 #else
 /// Flags a function as deprecated.
 #define DEPRECATED
@@ -61,19 +61,21 @@ typedef void (*voidfn)(void);
 
 /// Structure representing CPU registers
 typedef struct {
-	u32 r[13]; ///< r0-r12.
-	u32 sp;    ///< sp.
-	u32 lr;    ///< lr.
-	u32 pc;    ///< pc. May need to be adjusted.
-	u32 cpsr;  ///< cpsr.
+    u32 r[13]; ///< r0-r12.
+    u32 sp;    ///< sp.
+    u32 lr;    ///< lr.
+    u32 pc;    ///< pc. May need to be adjusted.
+    u32 cpsr;  ///< cpsr.
 } CpuRegisters;
 
 /// Structure representing FPU registers
 typedef struct {
-	union {
-		struct PACKED { double d[16]; }; ///< d0-d15.
-		float  s[32];                    ///< s0-s31.
-	};
-	u32 fpscr;        ///< fpscr.
-	u32 fpexc;        ///< fpexc.
+    union {
+        struct PACKED {
+            double d[16];
+        };           ///< d0-d15.
+        float s[32]; ///< s0-s31.
+    };
+    u32 fpscr; ///< fpscr.
+    u32 fpexc; ///< fpexc.
 } FpuRegisters;

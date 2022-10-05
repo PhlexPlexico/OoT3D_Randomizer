@@ -17,7 +17,8 @@ void BgYdanSp_rUpdate(BgYdanSp* thisx, GlobalContext* globalCtx) {
 
     BgYdanSp_Update((Actor*)thisx, globalCtx);
 
-    if (prev_action_fn != thisx->action_fn && (prev_action_fn == BgYdanSp_FloorWebIdle || prev_action_fn == BgYdanSp_WallWebIdle)) {
+    if (prev_action_fn != thisx->action_fn &&
+        (prev_action_fn == BgYdanSp_FloorWebIdle || prev_action_fn == BgYdanSp_WallWebIdle)) {
         BgYdanSp_SendData sendData = { prevHomePos, thisx->action_fn };
         Multiplayer_Send_ActorUpdate((Actor*)thisx, &sendData, sizeof(BgYdanSp_SendData));
     }

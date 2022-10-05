@@ -9,12 +9,10 @@
 
 namespace Dungeon {
 class DungeonInfo {
-public:
-    DungeonInfo(std::string name_, ItemKey map_, ItemKey compass_,
-                ItemKey smallKey_, ItemKey keyRing_, ItemKey bossKey_, u8 vanillaKeyCount_, u8 mqKeyCount_,
-                std::vector<LocationKey> vanillaLocations_,
-                std::vector<LocationKey> mqLocations_,
-                std::vector<LocationKey> sharedLocations_);
+  public:
+    DungeonInfo(std::string name_, ItemKey map_, ItemKey compass_, ItemKey smallKey_, ItemKey keyRing_,
+                ItemKey bossKey_, u8 vanillaKeyCount_, u8 mqKeyCount_, std::vector<LocationKey> vanillaLocations_,
+                std::vector<LocationKey> mqLocations_, std::vector<LocationKey> sharedLocations_);
     ~DungeonInfo();
 
     const std::string& GetName() const {
@@ -70,7 +68,7 @@ public:
     // Gets all dungeon locations (MQ + Vanilla)
     std::vector<LocationKey> GetEveryLocation() const;
 
-private:
+  private:
     std::string name;
     ItemKey map;
     ItemKey compass;

@@ -47,66 +47,66 @@ void ItemOverride_Init(void) {
 
     // Enable items by age as determined by settings
     if (gSettingsContext.stickAsAdult) {
-        gItemUsabilityTable[ITEM_STICK]           = 0x09;
+        gItemUsabilityTable[ITEM_STICK] = 0x09;
     }
     if (gSettingsContext.boomerangAsAdult) {
-        gItemUsabilityTable[ITEM_BOOMERANG]       = 0x09;
+        gItemUsabilityTable[ITEM_BOOMERANG] = 0x09;
     }
     if (gSettingsContext.hammerAsChild) {
-        gItemUsabilityTable[ITEM_HAMMER]          = 0x09;
+        gItemUsabilityTable[ITEM_HAMMER] = 0x09;
     }
     if (gSettingsContext.slingshotAsAdult) {
-        gItemUsabilityTable[ITEM_SLINGSHOT]       = 0x09;
+        gItemUsabilityTable[ITEM_SLINGSHOT] = 0x09;
     }
     if (gSettingsContext.bowAsChild) {
-        gItemUsabilityTable[ITEM_BOW]             = 0x09;
-        gItemUsabilityTable[ITEM_ARROW_FIRE]      = 0x09;
-        gItemUsabilityTable[ITEM_ARROW_ICE]       = 0x09;
-        gItemUsabilityTable[ITEM_ARROW_LIGHT]     = 0x09;
-        gItemUsabilityTable[ITEM_BOW_ARROW_FIRE]  = 0x09;
-        gItemUsabilityTable[ITEM_BOW_ARROW_ICE]   = 0x09;
+        gItemUsabilityTable[ITEM_BOW] = 0x09;
+        gItemUsabilityTable[ITEM_ARROW_FIRE] = 0x09;
+        gItemUsabilityTable[ITEM_ARROW_ICE] = 0x09;
+        gItemUsabilityTable[ITEM_ARROW_LIGHT] = 0x09;
+        gItemUsabilityTable[ITEM_BOW_ARROW_FIRE] = 0x09;
+        gItemUsabilityTable[ITEM_BOW_ARROW_ICE] = 0x09;
         gItemUsabilityTable[ITEM_BOW_ARROW_LIGHT] = 0x09;
     }
     if (gSettingsContext.ironbootsAsChild) {
-        gItemUsabilityTable[ITEM_BOOTS_IRON]      = 0x09;
+        gItemUsabilityTable[ITEM_BOOTS_IRON] = 0x09;
     }
     if (gSettingsContext.hoverbootsAsChild) {
-        gItemUsabilityTable[ITEM_BOOTS_HOVER]     = 0x09;
+        gItemUsabilityTable[ITEM_BOOTS_HOVER] = 0x09;
     }
     if (gSettingsContext.masksAsAdult) {
-        gItemUsabilityTable[ITEM_MASK_KEATON]     = 0x09;
-        gItemUsabilityTable[ITEM_MASK_SKULL]      = 0x09;
-        gItemUsabilityTable[ITEM_MASK_SPOOKY]     = 0x09;
-        gItemUsabilityTable[ITEM_MASK_BUNNY]      = 0x09;
-        gItemUsabilityTable[ITEM_MASK_GORON]      = 0x09;
-        gItemUsabilityTable[ITEM_MASK_ZORA]       = 0x09;
-        gItemUsabilityTable[ITEM_MASK_GERUDO]     = 0x09;
-        gItemUsabilityTable[ITEM_MASK_TRUTH]      = 0x09;
+        gItemUsabilityTable[ITEM_MASK_KEATON] = 0x09;
+        gItemUsabilityTable[ITEM_MASK_SKULL] = 0x09;
+        gItemUsabilityTable[ITEM_MASK_SPOOKY] = 0x09;
+        gItemUsabilityTable[ITEM_MASK_BUNNY] = 0x09;
+        gItemUsabilityTable[ITEM_MASK_GORON] = 0x09;
+        gItemUsabilityTable[ITEM_MASK_ZORA] = 0x09;
+        gItemUsabilityTable[ITEM_MASK_GERUDO] = 0x09;
+        gItemUsabilityTable[ITEM_MASK_TRUTH] = 0x09;
     }
     if (gSettingsContext.hookshotAsChild) {
-        gItemUsabilityTable[ITEM_HOOKSHOT]        = 0x09;
-        gItemUsabilityTable[ITEM_LONGSHOT]        = 0x09;
+        gItemUsabilityTable[ITEM_HOOKSHOT] = 0x09;
+        gItemUsabilityTable[ITEM_LONGSHOT] = 0x09;
     }
     if (gSettingsContext.kokiriSwordAsAdult) {
-        gGearUsabilityTable[GearSlot(ITEM_SWORD_KOKIRI)]  = 0x09;
+        gGearUsabilityTable[GearSlot(ITEM_SWORD_KOKIRI)] = 0x09;
     }
     if (gSettingsContext.masterSwordAsChild) {
-        gGearUsabilityTable[GearSlot(ITEM_SWORD_MASTER)]  = 0x09;
+        gGearUsabilityTable[GearSlot(ITEM_SWORD_MASTER)] = 0x09;
     }
     if (gSettingsContext.biggoronSwordAsChild) {
-        gGearUsabilityTable[GearSlot(ITEM_SWORD_BGS)]     = 0x09;
+        gGearUsabilityTable[GearSlot(ITEM_SWORD_BGS)] = 0x09;
     }
     if (gSettingsContext.dekuShieldAsAdult) {
-        gGearUsabilityTable[GearSlot(ITEM_SHIELD_DEKU)]   = 0x09;
+        gGearUsabilityTable[GearSlot(ITEM_SHIELD_DEKU)] = 0x09;
     }
     if (gSettingsContext.mirrorShieldAsChild) {
         gGearUsabilityTable[GearSlot(ITEM_SHIELD_MIRROR)] = 0x09;
     }
     if (gSettingsContext.goronTunicAsChild) {
-        gGearUsabilityTable[GearSlot(ITEM_TUNIC_GORON)]   = 0x09;
+        gGearUsabilityTable[GearSlot(ITEM_TUNIC_GORON)] = 0x09;
     }
     if (gSettingsContext.zoraTunicAsChild) {
-        gGearUsabilityTable[GearSlot(ITEM_TUNIC_ZORA)]    = 0x09;
+        gGearUsabilityTable[GearSlot(ITEM_TUNIC_ZORA)] = 0x09;
     }
 }
 
@@ -258,19 +258,40 @@ static void ItemOverride_AfterKeyReceived(ItemOverride_Key key) {
     }
 
     // If we override an adult trade item, we should remove the previous item from being owned
-    if ((key.type == OVR_BASE_ITEM) && ((key.flag == GI_COJIRO) || ((key.flag > GI_POCKET_EGG) && (key.flag <= GI_CLAIM_CHECK)))) {
+    if ((key.type == OVR_BASE_ITEM) &&
+        ((key.flag == GI_COJIRO) || ((key.flag > GI_POCKET_EGG) && (key.flag <= GI_CLAIM_CHECK)))) {
         u8 itemId;
         switch (key.flag) {
-            case GI_COJIRO:       itemId = 46; break;
-            case GI_POCKET_CUCCO: itemId = 45; break;
-            case GI_ODD_MUSHROOM: itemId = 47; break;
-            case GI_ODD_POTION:   itemId = 48; break;
-            case GI_SAW:          itemId = 49; break;
-            case GI_SWORD_BROKEN: itemId = 50; break;
-            case GI_PERSCRIPTION: itemId = 51; break;
-            case GI_FROG:         itemId = 52; break;
-            case GI_EYEDROPS:     itemId = 53; break;
-            case GI_CLAIM_CHECK:  itemId = 54; break;
+            case GI_COJIRO:
+                itemId = 46;
+                break;
+            case GI_POCKET_CUCCO:
+                itemId = 45;
+                break;
+            case GI_ODD_MUSHROOM:
+                itemId = 47;
+                break;
+            case GI_ODD_POTION:
+                itemId = 48;
+                break;
+            case GI_SAW:
+                itemId = 49;
+                break;
+            case GI_SWORD_BROKEN:
+                itemId = 50;
+                break;
+            case GI_PERSCRIPTION:
+                itemId = 51;
+                break;
+            case GI_FROG:
+                itemId = 52;
+                break;
+            case GI_EYEDROPS:
+                itemId = 53;
+                break;
+            case GI_CLAIM_CHECK:
+                itemId = 54;
+                break;
         }
         SaveFile_UnsetTradeItemAsOwned(itemId);
         SaveFile_SetOwnedTradeItemEquipped();
@@ -319,11 +340,10 @@ static u32 ItemOverride_PlayerIsReadyInWater(void) {
     if ((PLAYER->stateFlags1 & 0xF4AC2085) == 0 /*&& (PLAYER->actor.bgCheckFlags & 0x0001)*/ &&
         (PLAYER->stateFlags2 & 0x000C0000) == 0 && PLAYER->actor.draw != NULL &&
         gGlobalContext->actorCtx.titleCtx.delayTimer == 0 && gGlobalContext->actorCtx.titleCtx.durationTimer == 0 &&
-        gGlobalContext->actorCtx.titleCtx.alpha == 0 &&
-        (PLAYER->stateFlags1 & 0x08000000) != 0 && // Player is Swimming
-        (PLAYER->stateFlags2 & 0x400) != 0 && // Player is underwater
-        (PLAYER->stateFlags1 & 0x400) == 0 && // Player is not already receiving an item when surfacing
-        gGlobalContext->sceneLoadFlag == 0 && // Another scene isn't about to be loaded
+        gGlobalContext->actorCtx.titleCtx.alpha == 0 && (PLAYER->stateFlags1 & 0x08000000) != 0 && // Player is Swimming
+        (PLAYER->stateFlags2 & 0x400) != 0 &&           // Player is underwater
+        (PLAYER->stateFlags1 & 0x400) == 0 &&           // Player is not already receiving an item when surfacing
+        gGlobalContext->sceneLoadFlag == 0 &&           // Another scene isn't about to be loaded
         rPendingOverrideQueue[0].key.type == OVR_TEMPLE // Must be an item received for completing a dungeon
         // && Multiworld is off
         // && (z64_event_state_1 & 0x20) == 0 //TODO
@@ -536,7 +556,8 @@ void ItemOverride_EditDrawGetItemAfterModelSpawn(SkeletonAnimationModel* model) 
 
 s32 ItemOverride_GiveSariasGift(void) {
     u32 receivedGift = EventCheck(0xC1);
-    if (receivedGift == 0 && Entrance_SceneAndSpawnAre(0x5B, 0x09)) { // Kokiri Forest -> LW Bridge, index 05E0 in the entrance table
+    if (receivedGift == 0 &&
+        Entrance_SceneAndSpawnAre(0x5B, 0x09)) { // Kokiri Forest -> LW Bridge, index 05E0 in the entrance table
         ItemOverride_PushDelayedOverride(0x02);
         EventSet(0xC1);
     }
