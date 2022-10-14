@@ -24,7 +24,7 @@ jobs:
       - name: Get Last Nightly
         id: nightly-version
         run: |
-          echo "last_nightly=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
+          echo "last_nightly=$(git describe --tags $(git rev-list --tags --max-count=1))" >> $GITHUB_ENV
       - name: Generate changelog
         id: changelog
         uses: metcalfc/changelog-generator@v3.0.0
