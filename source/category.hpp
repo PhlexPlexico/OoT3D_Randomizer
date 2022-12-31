@@ -51,6 +51,7 @@ enum class Category {
     cTempleOfTime,
     cFairies,
     cOutsideGanonsCastle,
+    cDungeonReward,
     cSong,
     cSongDungeonReward,
     cCow,
@@ -66,7 +67,7 @@ enum class Category {
 };
 
 enum class OptionCategory {
-  Setting,
-  Cosmetic,
-  Toggle,
+    Setting,
+    Cosmetic,
+    Toggle,
 };

@@ -348,6 +348,10 @@ SECTIONS
 		*(.patch_KotakeDontPlayBattleMusic)
 	}
 
+	.patch_GossipStoneAddSariaHint 0x1B3968 : {
+		*(.patch_GossipStoneAddSariaHint)
+	}
+
 	.patch_ReadGossipStoneHints 0x1B3A44 : {
 		*(.patch_ReadGossipStoneHints)
 	}
@@ -576,10 +580,6 @@ SECTIONS
 		*(.patch_BoleroLocation)
 	}
 
-	.patch_BrownBoulderExplode 0x26F9F8 : {
-		*(.patch_BrownBoulderExplode)
-	}
-
 	.patch_RedBoulderExplode 0x26FE7C : {
 		*(.patch_RedBoulderExplode)
 	}
@@ -768,8 +768,8 @@ SECTIONS
 		*(.patch_BiggoronDayCheck)
 	}
 
-	.patch_WarpSongTimerDepletion 0x33DE84 : {
-		*(.patch_WarpSongTimerDepletion)
+	.patch_FWandWarpSongTimerDepletion 0x33DE84 : {
+		*(.patch_FWandWarpSongTimerDepletion)
 	}
 
 	.patch_MasterQuestGoldSkulltulaCheck 0x3415C8 : {
@@ -814,6 +814,10 @@ SECTIONS
 
 	.patch_FastChests 0x354CD4 : {
 		*(.patch_FastChests)
+	}
+
+	.patch_AboutToPickUpActor 0x354DD8 : {
+		*(.patch_AboutToPickUpActor)
 	}
 
 	.patch_MasterSwordTimerCheck 0x354DFC : {
@@ -962,6 +966,10 @@ SECTIONS
 
 	.patch_ForestTempleBasementPuzzleDelay 0x3BFA8C : {
 		*(.patch_ForestTempleBasementPuzzleDelay)
+	}
+
+	.patch_GoronPotGuaranteeReward 0x3C148C : {
+		*(.patch_GoronPotGuaranteeReward)
 	}
 
 	.patch_GerudoArcheryTwo 0x3C2D80 : {
@@ -1152,6 +1160,10 @@ SECTIONS
 		*(.patch_CheckForPocketCuccoHatchGameplayInit)
 	}
 
+	.patch_InitSceneMirrorWorld 0x4490DC : {
+		*(.patch_InitSceneMirrorWorld)
+	}
+
 	.patch_InitSceneClearExtendedObjects 0x449218 : {
 		*(.patch_InitSceneClearExtendedObjects)
 	}
@@ -1328,6 +1340,14 @@ SECTIONS
 		*(.patch_StoreTargetActorType)
 	}
 
+	.patch_TargetReticleColor 0x47B284 : {
+		*(.patch_TargetReticleColor)
+	}
+
+	.patch_TargetPointerColor 0x47BAE8 : {
+		*(.patch_TargetPointerColor)
+	}
+
 	.patch_FWKeepWarpPoint 0x47C3C0 : {
 		*(.patch_FWKeepWarpPoint)
 	}
@@ -1346,6 +1366,10 @@ SECTIONS
 
 	.patch_WarpSongEntranceOverride 0x488850 : {
 		*(.patch_WarpSongEntranceOverride)
+	}
+
+	.patch_SetFWPlayerParams 0x4911B8 : {
+		*(.patch_SetFWPlayerParams)
 	}
 
 	.patch_SwapFaroresWind 0x49186C : {
@@ -1376,8 +1400,8 @@ SECTIONS
 		*(.patch_SendDroppedBottleContents)
 	}
 
-	.patch_ReturnFWSetupGrottoInfo 0x496B88 : {
-		*(.patch_ReturnFWSetupGrottoInfo)
+	.patch_ReturnFW 0x496B88 : {
+		*(.patch_ReturnFW)
 	}
 
 	.patch_SetSpecialVoidOutRespawnFlag 0x496C70 : {

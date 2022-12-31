@@ -1066,6 +1066,11 @@ ReadGossipStoneHints_patch:
     nop
     nop
 
+.section .patch_GossipStoneAddSariaHint
+.global GossipStoneAddSariaHint_patch
+GossipStoneAddSariaHint_patch:
+    bl hook_GossipStoneAddSariaHint
+
 .section .patch_DecoratedChest
 .global DecoratedChest_patch
 DecoratedChest_patch:
@@ -1636,10 +1641,10 @@ SceneExitDynamicOverride_patch:
 OverrideGrottoActorEntrance_patch:
     b hook_OverrideGrottoActorEntrance
 
-.section .patch_ReturnFWSetupGrottoInfo
-.global ReturnFWSetupGrottoInfo_patch
-ReturnFWSetupGrottoInfo_patch:
-    bl hook_ReturnFWSetupGrottoInfo
+.section .patch_ReturnFW
+.global ReturnFW_patch
+ReturnFW_patch:
+    bl hook_ReturnFW
 
 .section .patch_WarpSongEntranceOverride
 .global WarpSongEntranceOverride_patch
@@ -1700,11 +1705,6 @@ LinkReflection_patch:
 .global ChildCanOpenBowSubMenu_patch
 ChildCanOpenBowSubMenu_patch:
     b hook_ChildCanOpenBowSubMenu
-
-.section .patch_BrownBoulderExplode
-.global BrownBoulderExplode_patch
-BrownBoulderExplode_patch:
-    bl hook_BrownBoulderExplode
 
 .section .patch_RedBoulderExplode
 .global RedBoulderExplode_patch
@@ -1795,11 +1795,11 @@ RainbowChuTrailOne_patch:
 RainbowChuTrailTwo_patch:
     bl hook_RainbowChuTrail
 
-.section .patch_WarpSongTimerDepletion
-.global WarpSongTimerDepletion_patch
-WarpSongTimerDepletion_patch:
+.section .patch_FWandWarpSongTimerDepletion
+.global FWandWarpSongTimerDepletion_patch
+FWandWarpSongTimerDepletion_patch:
     push {lr}
-    bl hook_WarpSongTimerDepletion
+    bl hook_FWandWarpSongTimerDepletion
     pop {lr}
 
 .section .patch_TimerExpiration
@@ -1971,6 +1971,11 @@ CriticalHealthCheckThree_patch:
     nop
     nop
 
+.section .patch_InitSceneMirrorWorld
+.global InitSceneMirrorWorld_patch
+InitSceneMirrorWorld_patch:
+    bl hook_InitSceneMirrorWorld
+
 .section .patch_CollisionATvsAC
 .global CollisionATvsAC_patch
 CollisionATvsAC_patch:
@@ -1981,8 +1986,35 @@ CollisionATvsAC_patch:
 GanonDrawMasterSword_patch:
     bl hook_GanonDrawMasterSword
 
+.section .patch_SetFWPlayerParams
+.global SetFWPlayerParams_patch
+SetFWPlayerParams_patch:
+    bl hook_SetFWPlayerParams
+
+.section .patch_AboutToPickUpActor
+.global AboutToPickUpActor_patch
+AboutToPickUpActor_patch:
+    bl hook_AboutToPickUpActor
+
+.section .patch_GoronPotGuaranteeReward
+.global GoronPotGuaranteeReward_patch
+GoronPotGuaranteeReward_patch:
+    bl hook_GoronPotGuaranteeReward
+
+.section .patch_TargetReticleColor
+.global TargetReticleColor_patch
+TargetReticleColor_patch:
+    bl hook_TargetReticleColor
+
+.section .patch_TargetPointerColor
+.global TargetPointerColor_patch
+TargetPointerColor_patch:
+    bl hook_TargetPointerColor
+
+@ ----------------------------------
+@ ----------------------------------
+
 .section .patch_loader
 .global loader_patch
-
 loader_patch:
     b hook_into_loader

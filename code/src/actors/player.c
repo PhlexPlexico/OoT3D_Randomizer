@@ -7,6 +7,8 @@
 #include "fairy.h"
 #include "icetrap.h"
 #include "arrow.h"
+#include "grotto.h"
+#include "item_override.h"
 
 #define PlayerActor_Init_addr 0x191844
 #define PlayerActor_Init ((ActorFunc)PlayerActor_Init_addr)
@@ -26,23 +28,28 @@
 #define PlayerDListGroup_EmptySheathChildWithHylianShield ((void*)0x53C4DC)
 
 u16 healthDecrement = 0;
-u8  storedMask = 0;
+u8 storedMask       = 0;
 
 void* Player_EditAndRetrieveCMB(ZARInfo* zarInfo, u32 objModelIdx) {
     void* cmbMan = ZAR_GetCMBByIndex(zarInfo, objModelIdx);
 
-    if (gSaveContext.linkAge == 0) {
-        void* cmb = (void*)(((char*)zarInfo->buf) + 0xDAE8);
-        CustomModel_EditLinkToCustomTunic(cmb);
-    } else {
-        void* cmb = (void*)(((char*)zarInfo->buf) + 0xDACC);
-        CustomModel_EditChildLinkToCustomTunic(cmb);
+    if (gSettingsContext.customTunicColors == ON) {
+        if (gSaveContext.linkAge == 0) {
+            void* cmb = (void*)(((char*)zarInfo->buf) + 0xDAE8);
+            CustomModel_EditLinkToCustomTunic(cmb);
+        } else {
+            void* cmb = (void*)(((char*)zarInfo->buf) + 0xDACC);
+            CustomModel_EditChildLinkToCustomTunic(cmb);
+        }
     }
 
     return cmbMan;
 }
 
-void* Player_GetCustomTunicCMAB(void) {
+void* Player_GetCustomTunicCMAB(ZARInfo* originalZarInfo, u32 originalIndex) {
+    if (gSettingsContext.customTunicColors == OFF) {
+        return ZAR_GetCMABByIndex(originalZarInfo, originalIndex);
+    }
     s16 exObjectBankIdx = Object_GetIndex(&rExtendedObjectCtx, OBJECT_CUSTOM_GENERAL_ASSETS);
     if (exObjectBankIdx < 0) {
         exObjectBankIdx = Object_Spawn(&rExtendedObjectCtx, OBJECT_CUSTOM_GENERAL_ASSETS);
@@ -55,6 +62,9 @@ void* Player_GetCustomTunicCMAB(void) {
 }
 
 void Player_SetChildCustomTunicCMAB(void) {
+    if (gSettingsContext.customTunicColors == OFF) {
+        return;
+    }
     s16 exObjectBankIdx = Object_GetIndex(&rExtendedObjectCtx, OBJECT_CUSTOM_GENERAL_ASSETS);
     void* cmabMan;
     if (exObjectBankIdx < 0) {
@@ -69,6 +79,7 @@ void PlayerActor_rInit(Actor* thisx, GlobalContext* globalCtx) {
         gSaveContext.equips.equipment &= ~0xF0; // unequip shield
     }
 
+    Grotto_SanitizeEntranceType();
     // If the player has started with 0 hearts, some entrances that knock Link down will cause a Game Over.
     // When respawning after the Game Over, change the entrance type to avoid softlocks.
     u8 playerEntranceType = (thisx->params & 0xF00) >> 8;
@@ -87,18 +98,19 @@ void PlayerActor_rInit(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void PlayerActor_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
-    Player* this = (Player*) thisx;
+    Player* this = (Player*)thisx;
     PlayerActor_Update(thisx, globalCtx);
 
     Arrow_HandleSwap(this, globalCtx);
 
     if (this->naviActor != 0) {
-        updateNaviColors((EnElf*)this->naviActor);
+        Fairy_UpdateRainbowNaviColors((EnElf*)this->naviActor);
     }
 
     if (IceTrap_ActiveCurse == ICETRAP_CURSE_SWORD && PLAYER->meleeWeaponState != 0 &&
-            ((PLAYER->itemActionParam >= 3 && PLAYER->itemActionParam <= 5) || PLAYER->itemActionParam == 35)) { //sword items
-        PLAYER->meleeWeaponState = -1; // slash effect with no hitbox (same as "damageless death ISG")
+        ((PLAYER->itemActionParam >= 3 && PLAYER->itemActionParam <= 5) ||
+         PLAYER->itemActionParam == 35)) { // sword items
+        PLAYER->meleeWeaponState = -1;     // slash effect with no hitbox (same as "damageless death ISG")
     }
     if (PLAYER->itemActionParam == 38) { // Blue Potion
         if (IceTrap_ActiveCurse == ICETRAP_CURSE_BLIND)
@@ -157,12 +169,22 @@ s32 Player_ShouldUseSlingshot() {
 
     if (PLAYER->heldItemActionParam == 0xF) { // Slingshot
         return gSaveContext.linkAge == 1 || gSettingsContext.slingshotAsAdult;
-    }
-    else {
+    } else {
         return gSaveContext.linkAge == 1 && !gSettingsContext.bowAsChild;
     }
 }
 
 s32 Player_ShouldDrawHookshotParts() {
     return gSaveContext.linkAge == 0 || !gSettingsContext.hookshotAsChild;
+}
+
+s32 Player_CanPickUpThisActor(Actor* interactedActor) {
+    switch (interactedActor->id) {
+        case 0xA: // Chest, can never be picked up
+            return 0;
+        case 0x6C: // Pedestal of Time, prevent interaction while waiting to get item
+            return !ItemOverride_IsAPendingOverride();
+        default:
+            return 1;
+    }
 }
