@@ -29,7 +29,7 @@ jobs:
           echo "last_nightly=$(git describe --tags $(git rev-list --tags --max-count=1))" >> $GITHUB_ENV
       - name: Generate changelog
         id: changelog
-        uses: metcalfc/changelog-generator@v3.0.0
+        uses: metcalfc/changelog-generator@v4.0.1
         with:
           myToken: ${{ secrets.GITHUB_TOKEN }}
           base-ref: ${{ env.last_nightly }}
@@ -432,9 +432,9 @@ jobs:
           done
 
       - name: Deploy to Gist
-        uses: exuanbo/actions-deploy-gist@v1
+        uses: exuanbo/actions-deploy-gist@v1.1.4
         with:
           token: ${{ secrets.TOKEN }}
-          gist_id: fa5ea9b42b99377c63bede1cf8ddfdad
+          gist_id: 8185aefdd8818cd84a37e50366bd4116
           gist_file_name: OoT3DR.unistore
           file_path: ./OoT3DR.unistore
